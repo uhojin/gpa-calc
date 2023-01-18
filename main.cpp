@@ -174,7 +174,8 @@ public:
                  << " Grade: " << course.getGrade()
                  << endl;
         }
-        double totalGPA = this->calculateGPA();
+        double totalGPA = calculateGPA();
+        file << setprecision(1) << fixed;
         file << "Cumulative GPA: " << totalGPA << endl;
         file.close();
         cout << "Grades have been saved to GPA.txt" << endl;
@@ -253,11 +254,11 @@ public:
                     break;
                 }
                 default: {
-                    cout << "Invalid choice. Please enter a number between 1 and 8." << endl;
+                    cout << "Invalid choice. Please enter a number between 1 and 9." << endl;
                     break;
                 }
             }
-        } while (choice != 8);
+        } while (choice != 9);
     }
 };
 
