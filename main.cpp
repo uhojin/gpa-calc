@@ -1,5 +1,6 @@
 #include <iostream>
 #include <list>
+#include <fstream>
 #define MAX_CHAR 99
 
 using namespace std;
@@ -102,6 +103,22 @@ public:
         }
         return totalWeightedGrade / totalCredit;
     }
+
+    void loadGradesFromFile(string &fileName) {
+        ifstream file(fileName);
+        if (!file.is_open()) {
+            cout << "Failed to open file" << fileName << endl;
+            return;
+        }
+        while (!file.eof()) {
+            int courseId, grade, credit;
+            file >> courseId >> grade >> credit;
+            Course courseItem(courseId, credit, grade);
+            courses.push_back(courseItem);
+        }
+        file.close();
+    }
+
 };
 
 int main(int argc, char** argv) {
