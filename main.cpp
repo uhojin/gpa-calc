@@ -86,8 +86,8 @@ public:
         cout << "Courses taken by " << name << ":" << endl;
         for (auto& course : courses) {
             cout << "Course ID: " << course.getCourseID()
-                 << "Credit: " << course.getCredit()
-                 << "Grade: " << course.getGrade()
+                 << " Credit: " << course.getCredit()
+                 << " Grade: " << course.getGrade()
                  << endl;
         }
     }
@@ -152,7 +152,9 @@ public:
             cout << "3. Modify a course grade" << endl;
             cout << "4. Display courses" << endl;
             cout << "5. Calculate GPA" << endl;
-            cout << "6. Exit" << endl;
+            cout << "6. Load grades from grades.txt" << endl;
+            cout << "7. Save student data to GPA.txt" << endl;
+            cout << "8. Exit" << endl;
             cout << "Enter your choice : ";
             cin >> choice;
 
@@ -194,6 +196,16 @@ public:
                     break;
                 }
                 case 6: {
+                    loadGradesFromFile("grades.txt");
+                    cout << "Grades loaded." << endl;
+                    break;
+                }
+                case 7: {
+                    saveToFile("GPA.txt");
+                    cout << "Grades saved." << endl;
+                    break;
+                }
+                case 8: {
                     break;
                 }
                 default: {
@@ -201,7 +213,7 @@ public:
                     break;
                 }
             }
-        } while (choice != 6);
+        } while (choice != 8);
     }
 };
 
