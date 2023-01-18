@@ -93,15 +93,50 @@ public:
     }
 
     double calculateGPA() {
-        int totalWeightedGrade = 0;
+        double totalWeightedGrade = 0;
         double totalCredit = 0;
         for (auto& course : courses) {
             int grade = course.getGrade();
             int credit = course.getCredit();
-            totalWeightedGrade += grade * credit;
+            totalWeightedGrade += convertGradeToPoints(grade) * credit;
             totalCredit += credit;
         }
         return totalWeightedGrade / totalCredit;
+    }
+
+    double convertGradeToPoints(int grade) {
+        if (grade <= 100 && grade >= 0) {
+            if (grade <= 49) {
+                return 0.0;
+            }
+            if (grade <= 54) {
+                return 1.0;
+            }
+            if (grade <= 59) {
+                return 1.5;
+            }
+            if (grade <= 64) {
+                return 2.0;
+            }
+            if (grade <= 69) {
+                return 2.5;
+            }
+            if (grade <= 74) {
+                return 3.0;
+            }
+            if (grade <= 79) {
+                return 3.3;
+            }
+            if (grade <= 84) {
+                return 3.6;
+            }
+            if (grade <= 89) {
+                return 3.8;
+            }
+            return 4.0;
+        }
+        cout << "Invalid grade. Grades are between 0 and 100" << endl;
+        return 0;
     }
 
     // File 'grades.txt' must exist in the same directory as the program.
@@ -110,7 +145,7 @@ public:
     void loadGradesFromFile(const string &fileName) {
         ifstream file(fileName);
         if (!file.is_open()) {
-            cout << "Failed to open file" << fileName << endl;
+            cout << "Failed to open file " << fileName << endl;
             return;
         }
         while (!file.eof()) {
@@ -120,6 +155,7 @@ public:
             courses.push_back(courseItem);
         }
         file.close();
+        cout << "\nGrades loaded." << endl;
     }
 
     void saveToFile(const string& fileName) {
@@ -139,13 +175,14 @@ public:
         double totalGPA = this->calculateGPA();
         file << "Cumulative GPA: " << totalGPA << endl;
         file.close();
+        cout << "Grades have been saved to GPA.txt" << endl;
     }
 
     void menu() {
         int choice;
         do {
-            cout << endl << "---------------------------------" << endl;
-            cout << endl << "-- GPA Calculation Application --" << endl;
+            cout << endl << "---------------------------------";
+            cout << endl << "-- GPA Calculation Application --";
             cout << endl << "---------------------------------" << endl;
             cout << "1. Add a course" << endl;
             cout << "2. Delete a course" << endl;
@@ -197,19 +234,17 @@ public:
                 }
                 case 6: {
                     loadGradesFromFile("grades.txt");
-                    cout << "Grades loaded." << endl;
                     break;
                 }
                 case 7: {
                     saveToFile("GPA.txt");
-                    cout << "Grades saved." << endl;
                     break;
                 }
                 case 8: {
                     break;
                 }
                 default: {
-                    cout << "Invalid choice. Please enter a number between 1 and 6." << endl;
+                    cout << "Invalid choice. Please enter a number between 1 and 8." << endl;
                     break;
                 }
             }
