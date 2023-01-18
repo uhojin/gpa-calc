@@ -1,6 +1,7 @@
 #include <iostream>
 #include <list>
 #include <fstream>
+#include <iomanip>
 #define MAX_CHAR 99
 
 using namespace std;
@@ -52,6 +53,7 @@ private:
 public:
     Student(string sName) {
         name = std::move(sName);
+        cout << setprecision(1) << fixed;
     }
 
     void addCourse(Course courseItem) {
@@ -104,7 +106,7 @@ public:
         return totalWeightedGrade / totalCredit;
     }
 
-    double convertGradeToPoints(int grade) {
+    static double convertGradeToPoints(int grade) {
         if (grade <= 100 && grade >= 0) {
             if (grade <= 49) {
                 return 0.0;
@@ -180,20 +182,23 @@ public:
 
     void menu() {
         int choice;
+        int index = 0;
         do {
             cout << endl << "---------------------------------";
             cout << endl << "-- GPA Calculation Application --";
             cout << endl << "---------------------------------" << endl;
-            cout << "1. Add a course" << endl;
-            cout << "2. Delete a course" << endl;
-            cout << "3. Modify a course grade" << endl;
-            cout << "4. Display courses" << endl;
-            cout << "5. Calculate GPA" << endl;
-            cout << "6. Load grades from grades.txt" << endl;
-            cout << "7. Save student data to GPA.txt" << endl;
-            cout << "8. Exit" << endl;
+            cout << ++index << ". Add a course" << endl;
+            cout << ++index << ". Delete a course" << endl;
+            cout << ++index << ". Modify a course grade" << endl;
+            cout << ++index << ". Sort course list" << endl;
+            cout << ++index << ". Display courses" << endl;
+            cout << ++index << ". Calculate GPA" << endl;
+            cout << ++index << ". Load grades from grades.txt" << endl;
+            cout << ++index << ". Save student data to GPA.txt" << endl;
+            cout << ++index << ". Exit" << endl;
             cout << "Enter your choice : ";
             cin >> choice;
+            index = 0;
 
             switch (choice) {
                 case 1: {
@@ -224,23 +229,27 @@ public:
                     break;
                 }
                 case 4: {
-                    displayCourses();
+                    sortCourses();
                     break;
                 }
                 case 5: {
+                    displayCourses();
+                    break;
+                }
+                case 6: {
                     double gpa = calculateGPA();
                     cout << "GPA: " << gpa << endl;
                     break;
                 }
-                case 6: {
+                case 7: {
                     loadGradesFromFile("grades.txt");
                     break;
                 }
-                case 7: {
+                case 8: {
                     saveToFile("GPA.txt");
                     break;
                 }
-                case 8: {
+                case 9: {
                     break;
                 }
                 default: {
