@@ -8,10 +8,10 @@ class Course {
 private:
     int courseID;
     int courseCredit;
-    float grade;
+    int grade;
 
 public:
-    Course(int id, int credit, float g) {
+    Course(int id, int credit, int g) {
         courseID = id;
         courseCredit = credit;
         grade = g;
@@ -25,8 +25,20 @@ public:
         return courseCredit;
     }
 
-    float getGrade() {
+    int getGrade() {
         return grade;
+    }
+
+    void setCourseID(int id) {
+        courseID = id;
+    }
+
+    void setCourseCredit(int credit) {
+        courseCredit = credit;
+    }
+
+    void setGrade(int g) {
+        grade = g;
     }
 
 };
@@ -49,6 +61,15 @@ public:
         for (auto it = courses.begin(); it != courses.end(); it++) {
             if (it -> getCourseID() == courseId) {
                 courses.erase(it);
+                break;
+            }
+        }
+    }
+
+    void updateCourseGrade(int courseId, int newGrade) {
+        for (auto &course : courses) {
+            if (course.getCourseID() == courseId) {
+                course.setGrade(newGrade);
                 break;
             }
         }
