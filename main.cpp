@@ -140,13 +140,77 @@ public:
         file << "Cumulative GPA: " << totalGPA << endl;
         file.close();
     }
+
+    void menu() {
+        int choice;
+        do {
+            cout << endl << "---------------------------------" << endl;
+            cout << endl << "-- GPA Calculation Application --" << endl;
+            cout << endl << "---------------------------------" << endl;
+            cout << "1. Add a course" << endl;
+            cout << "2. Delete a course" << endl;
+            cout << "3. Modify a course grade" << endl;
+            cout << "4. Display courses" << endl;
+            cout << "5. Calculate GPA" << endl;
+            cout << "6. Exit" << endl;
+            cout << "Enter your choice : ";
+            cin >> choice;
+
+            switch (choice) {
+                case 1: {
+                    int courseId, grade, credit;
+                    cout << "Enter course ID: ";
+                    cin >> courseId;
+                    cout << "Enter course credit: ";
+                    cin >> credit;
+                    cout << "Enter course grade: ";
+                    cin >> grade;
+                    addCourse(Course(courseId, credit, grade));
+                    break;
+                }
+                case 2: {
+                    int courseId;
+                    cout << "Enter course ID: ";
+                    cin >> courseId;
+                    deleteCourse(courseId);
+                    break;
+                }
+                case 3: {
+                    int courseId, newGrade;
+                    cout << "Enter course ID: ";
+                    cin >> courseId;
+                    cout << "Enter new grade: ";
+                    cin >> newGrade;
+                    updateCourseGrade(courseId, newGrade);
+                    break;
+                }
+                case 4: {
+                    displayCourses();
+                    break;
+                }
+                case 5: {
+                    double gpa = calculateGPA();
+                    cout << "GPA: " << gpa << endl;
+                    break;
+                }
+                case 6: {
+                    break;
+                }
+                default: {
+                    cout << "Invalid choice. Please enter a number between 1 and 6." << endl;
+                    break;
+                }
+            }
+        } while (choice != 6);
+    }
 };
+
 
 int main(int argc, char** argv) {
     char str[MAX_CHAR];
     cout << "Enter Student Name: ";
     fgets(str, MAX_CHAR, stdin);
-    RMN(str);
+    //RMN(str);
     cout << str << endl;
     Student *s = new Student(str);
     s -> menu();
