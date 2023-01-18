@@ -104,7 +104,10 @@ public:
         return totalWeightedGrade / totalCredit;
     }
 
-    void loadGradesFromFile(string &fileName) {
+    // File 'grades.txt' must exist in the same directory as the program.
+    // Each line of the file should contain the course id, grade and credit separated by spaces.
+    // Method invoked by student.loadGradesFromFile("grades.txt");
+    void loadGradesFromFile(const string &fileName) {
         ifstream file(fileName);
         if (!file.is_open()) {
             cout << "Failed to open file" << fileName << endl;
@@ -119,6 +122,24 @@ public:
         file.close();
     }
 
+    void saveToFile(const string& fileName) {
+        ofstream file(fileName);
+        if (!file.is_open()) {
+            cout << "Failed to open file" << fileName << endl;
+            return;
+        }
+        file << "Name: " << name << endl;
+        file << "Courses: " << endl;
+        for (auto& course: courses) {
+            file << "Course ID: " << course.getCourseID()
+                 << " Credit: " << course.getCredit()
+                 << " Grade: " << course.getGrade()
+                 << endl;
+        }
+        double totalGPA = this->calculateGPA();
+        file << "Cumulative GPA: " << totalGPA << endl;
+        file.close();
+    }
 };
 
 int main(int argc, char** argv) {
