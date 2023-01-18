@@ -1,4 +1,5 @@
 #include <iostream>
+#include <list>
 #define MAX_CHAR 99
 
 using namespace std;
@@ -16,6 +17,10 @@ public:
         grade = g;
     }
 
+    int getCourseID() {
+        return courseID;
+    }
+
     int getCredits() {
         return courseCredit;
     }
@@ -26,6 +31,29 @@ public:
 
 };
 
+class Student {
+private:
+    string name;
+    list<Course> courses;
+
+public:
+    Student(string n) {
+        name = n;
+    }
+
+    void addCourse(Course courseItem) {
+        courses.push_back(courseItem);
+    }
+
+    void deleteCourse(int courseId) {
+        for (auto it = courses.begin(); it != courses.end(); it++) {
+            if (it -> getCourseID() == courseId) {
+                courses.erase(it);
+                break;
+            }
+        }
+    }
+};
 
 int main(int argc, char** argv) {
     char str[MAX_CHAR];
