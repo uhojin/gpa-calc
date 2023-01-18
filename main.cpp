@@ -74,6 +74,22 @@ public:
             }
         }
     }
+
+    void sortCourses() {
+        courses.sort([](Course &a, Course &b) {
+            return a.getCourseID() < b.getCourseID();
+        });
+    }
+
+    void displayCourses() {
+        cout << "Courses taken by " << name << ":" << endl;
+        for (auto& course : courses) {
+            cout << "Course ID: " << course.getCourseID()
+                 << "Credit: " << course.getCredits()
+                 << "Grade: " << course.getGrade()
+                 << endl;
+        }
+    }
 };
 
 int main(int argc, char** argv) {
