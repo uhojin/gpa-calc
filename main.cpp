@@ -21,7 +21,7 @@ public:
         return courseID;
     }
 
-    int getCredits() {
+    int getCredit() {
         return courseCredit;
     }
 
@@ -49,8 +49,8 @@ private:
     list<Course> courses;
 
 public:
-    Student(string n) {
-        name = n;
+    Student(string sName) {
+        name = std::move(sName);
     }
 
     void addCourse(Course courseItem) {
@@ -85,10 +85,22 @@ public:
         cout << "Courses taken by " << name << ":" << endl;
         for (auto& course : courses) {
             cout << "Course ID: " << course.getCourseID()
-                 << "Credit: " << course.getCredits()
+                 << "Credit: " << course.getCredit()
                  << "Grade: " << course.getGrade()
                  << endl;
         }
+    }
+
+    double calculateGPA() {
+        int totalWeightedGrade = 0;
+        double totalCredit = 0;
+        for (auto& course : courses) {
+            int grade = course.getGrade();
+            int credit = course.getCredit();
+            totalWeightedGrade += grade * credit;
+            totalCredit += credit;
+        }
+        return totalWeightedGrade / totalCredit;
     }
 };
 
