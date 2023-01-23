@@ -2,7 +2,8 @@
 #include <list>
 #include <fstream>
 #include <iomanip>
-#define MAX_CHAR 99
+#define MAX_CHAR 20
+#define RMN(str) str[strcspn(str,"\n")]=0
 
 using namespace std;
 
@@ -13,10 +14,10 @@ private:
     int grade;
 
 public:
-    Course(int id, int credit, int g) {
+    Course(int id, int credit, int grade) {
         courseID = id;
         courseCredit = credit;
-        grade = g;
+        this->grade = grade;
     }
 
     int getCourseID() {
@@ -49,9 +50,8 @@ class Student {
 private:
     string name;
     list<Course> courses;
-
 public:
-    Student(string sName) {
+    explicit Student(string sName) {
         name = std::move(sName);
         cout << setprecision(1) << fixed;
     }
@@ -78,10 +78,12 @@ public:
         }
     }
 
+    static bool compareCourseID(Course &a, Course &b) {
+        return a.getCourseID() < b.getCourseID();
+    }
+
     void sortCourses() {
-        courses.sort([](Course &a, Course &b) {
-            return a.getCourseID() < b.getCourseID();
-        });
+        courses.sort(compareCourseID);
     }
 
     void displayCourses() {
@@ -107,38 +109,38 @@ public:
     }
 
     static double convertGradeToPoints(int grade) {
-        if (grade <= 100 && grade >= 0) {
-            if (grade <= 49) {
-                return 0.0;
-            }
-            if (grade <= 54) {
-                return 1.0;
-            }
-            if (grade <= 59) {
-                return 1.5;
-            }
-            if (grade <= 64) {
-                return 2.0;
-            }
-            if (grade <= 69) {
-                return 2.5;
-            }
-            if (grade <= 74) {
-                return 3.0;
-            }
-            if (grade <= 79) {
-                return 3.3;
-            }
-            if (grade <= 84) {
-                return 3.6;
-            }
-            if (grade <= 89) {
-                return 3.8;
-            }
-            return 4.0;
+        if (grade < 0 || grade > 100) {
+            cout << "Invalid grade. Grades are between 0 and 100" << endl;
+            return 0;
         }
-        cout << "Invalid grade. Grades are between 0 and 100" << endl;
-        return 0;
+        switch (grade / 10) {
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+                return 0;
+            case 4:
+                return 1;
+            case 5:
+                return 1.5;
+            case 6:
+                return 2;
+            case 7:
+                return 2.5;
+            case 8:
+                return 3;
+            case 9:
+                return 3.3;
+            case 10:
+                return 3.6;
+            case 11:
+                return 3.8;
+            case 12:
+                return 4;
+            default:
+                cout << "Invalid grade. Grades are between 0 and 100" << endl;
+                return 0;
+        }
     }
 
     // File 'grades.txt' must exist in the same directory as the program.
