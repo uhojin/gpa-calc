@@ -109,38 +109,38 @@ public:
     }
 
     static double convertGradeToPoints(int grade) {
-        if (grade < 0 || grade > 100) {
-            cout << "Invalid grade. Grades are between 0 and 100" << endl;
-            return 0;
-        }
-        switch (grade / 10) {
-            case 0:
-            case 1:
-            case 2:
-            case 3:
-                return 0;
-            case 4:
-                return 1;
-            case 5:
+        if (grade <= 100 && grade >= 0) {
+            if (grade <= 49) {
+                return 0.0;
+            }
+            if (grade <= 54) {
+                return 1.0;
+            }
+            if (grade <= 59) {
                 return 1.5;
-            case 6:
-                return 2;
-            case 7:
+            }
+            if (grade <= 64) {
+                return 2.0;
+            }
+            if (grade <= 69) {
                 return 2.5;
-            case 8:
-                return 3;
-            case 9:
+            }
+            if (grade <= 74) {
+                return 3.0;
+            }
+            if (grade <= 79) {
                 return 3.3;
-            case 10:
+            }
+            if (grade <= 84) {
                 return 3.6;
-            case 11:
+            }
+            if (grade <= 89) {
                 return 3.8;
-            case 12:
-                return 4;
-            default:
-                cout << "Invalid grade. Grades are between 0 and 100" << endl;
-                return 0;
+            }
+            return 4.0;
         }
+        cout << "Invalid grade. Grades are between 0 and 100" << endl;
+        return 0;
     }
 
     // File 'grades.txt' must exist in the same directory as the program.
