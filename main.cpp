@@ -69,6 +69,15 @@ public:
         }
     }
 
+    void updateCourseGrade(int courseId, int newGrade) {
+        for (auto &course : courses) {
+            if (course.getCourseID() == courseId) {
+                course.setGrade(newGrade);
+                break;
+            }
+        }
+    }
+
     void sortCourses() {
         list<Course>::iterator i;
         list<Course>::iterator j;
