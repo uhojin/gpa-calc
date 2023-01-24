@@ -52,7 +52,7 @@ private:
     list<Course> courses;
 public:
     explicit Student(string sName) {
-        name = std::move(sName);
+        name = sName;
         cout << setprecision(1) << fixed;
     }
 
@@ -69,21 +69,18 @@ public:
         }
     }
 
-    void updateCourseGrade(int courseId, int newGrade) {
-        for (auto &course : courses) {
-            if (course.getCourseID() == courseId) {
-                course.setGrade(newGrade);
-                break;
+    void sortCourses() {
+        list<Course>::iterator i;
+        list<Course>::iterator j;
+        for (i = courses.begin(); i != courses.end(); i++) {
+            for (j = i; j != courses.end(); j++) {
+                if (j != i && (j->getCourseID() < i->getCourseID())) {
+                    Course temp = *i;
+                    *i = *j;
+                    *j = temp;
+                }
             }
         }
-    }
-
-    static bool compareCourseID(Course &a, Course &b) {
-        return a.getCourseID() < b.getCourseID();
-    }
-
-    void sortCourses() {
-        courses.sort(compareCourseID);
     }
 
     void displayCourses() {
@@ -269,7 +266,7 @@ int main(int argc, char** argv) {
     char str[MAX_CHAR];
     cout << "Enter Student Name: ";
     fgets(str, MAX_CHAR, stdin);
-    //RMN(str);
+    RMN(str);
     cout << str << endl;
     Student *s = new Student(str);
     s -> menu();
