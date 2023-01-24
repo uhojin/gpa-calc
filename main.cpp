@@ -32,14 +32,6 @@ public:
         return grade;
     }
 
-    void setCourseID(int id) {
-        courseID = id;
-    }
-
-    void setCourseCredit(int credit) {
-        courseCredit = credit;
-    }
-
     void setGrade(int g) {
         grade = g;
     }
@@ -61,7 +53,8 @@ public:
     }
 
     void deleteCourse(int courseId) {
-        for (auto it = courses.begin(); it != courses.end(); it++) {
+        list<Course>::iterator it;
+        for (it = courses.begin(); it != courses.end(); it++) {
             if (it -> getCourseID() == courseId) {
                 courses.erase(it);
                 break;
@@ -70,9 +63,10 @@ public:
     }
 
     void updateCourseGrade(int courseId, int newGrade) {
-        for (auto &course : courses) {
-            if (course.getCourseID() == courseId) {
-                course.setGrade(newGrade);
+        list<Course>::iterator it;
+        for (it = courses.begin(); it != courses.end(); it++) {
+            if (it->getCourseID() == courseId) {
+                it->setGrade(newGrade);
                 break;
             }
         }
@@ -105,9 +99,10 @@ public:
     double calculateGPA() {
         double totalWeightedGrade = 0;
         double totalCredit = 0;
-        for (auto& course : courses) {
-            int grade = course.getGrade();
-            int credit = course.getCredit();
+        list<Course>::iterator it;
+        for (it = courses.begin(); it != courses.end(); it++) {
+            int grade = it->getGrade();
+            int credit = it->getCredit();
             totalWeightedGrade += convertGradeToPoints(grade) * credit;
             totalCredit += credit;
         }
@@ -176,10 +171,11 @@ public:
         }
         file << "Name: " << name << endl;
         file << "Courses: " << endl;
-        for (auto& course: courses) {
-            file << "Course ID: " << course.getCourseID()
-                 << " Credit: " << course.getCredit()
-                 << " Grade: " << course.getGrade()
+        list<Course>::iterator it;
+        for (it = courses.begin(); it != courses.end(); it++) {
+            file << "Course ID: " << it->getCourseID()
+                 << " Credit: " << it->getCredit()
+                 << " Grade: " << it->getGrade()
                  << endl;
         }
         double totalGPA = calculateGPA();
