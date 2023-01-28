@@ -1,3 +1,14 @@
+/*
+GPA Calculator
+
+This program calculates a student's grade point average (GPA) based on the grades
+received in a number of courses entered using C++ STL and user defined data structure 'Course' with list operations.
+The program then calculates the GPA using the following Sheridan College's formula provided on their website.
+
+Name: Hojin You
+Student ID: 991473993
+Created on: 2023-01-16
+*/
 #include <iostream>
 #include <list>
 #include <fstream>
@@ -43,8 +54,8 @@ private:
     string name;
     list<Course> courses;
 public:
-    explicit Student(string sName) {
-        name = sName;
+    explicit Student(string studentName) {
+        name = studentName;
         cout << setprecision(1) << fixed;
     }
 
@@ -265,7 +276,6 @@ public:
         } while (choice != 9);
     }
 };
-
 
 int main(int argc, char** argv) {
     char str[MAX_CHAR];
