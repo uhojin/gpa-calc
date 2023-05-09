@@ -6,7 +6,6 @@ received in a number of courses entered using C++ STL and user defined data stru
 The program then calculates the GPA using the following Sheridan College's formula provided on their website.
 
 Name: Hojin You
-Student ID: 991473993
 Created on: 2023-01-16
 */
 #include <iostream>
